@@ -1,6 +1,4 @@
 import mongoose from "mongoose";
-// import Locals from "../config/config.js";
-
 
 class Database {
 // Initialize the database connection

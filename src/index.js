@@ -1,10 +1,12 @@
 import express from 'express'
-// import session from 'express-session'
+import session from 'express-session'
 import * as dotenv from 'dotenv';
+import MongoStore from "connect-mongo";
 import createError from 'http-errors'
 import helmet from 'helmet'
 import morgan from 'morgan'
-// import locals from './config/config';
+import multer from 'multer'
+import locals from './config/config.js';
 import Database from '../src/db/db.js';
 import userRouter from '../src/routes/userRoute.js';
 import orderRouter from '../src/routes/orderRoute.js';
@@ -19,19 +21,20 @@ const port = process.env.PORT || 3000
 // app.set('port', port)
 app.use(helmet());
 app.use(morgan('dev'));
+app.use(multer().any())
 
-// app.use(session({
-//     secret : process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: true,
-//     cookie : {
-//         maxAge: 2 * 24 * 60 * 60 * 1000,
-//     },
-//     store:  MongoStore.create({
-//         mongoUrl : process.env.MONGOOSE_URI,
-//         ttl: locals.config().ttl
-//     })
-// }));
+app.use(session({
+    secret : process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie : {
+        maxAge: 2 * 24 * 60 * 60 * 1000,
+    },
+    store:  MongoStore.create({
+        mongoUrl : process.env.MONGOOSE_URI,
+        ttl: locals.config().ttl
+    })
+}));
 
 
 //Global middleware for data parsing

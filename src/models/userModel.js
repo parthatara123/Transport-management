@@ -1,8 +1,17 @@
 import mongoose from "mongoose";
-import bcrypt from "bcrypt";    
+import bcrypt from "bcrypt";
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
+
+
+
+/*
+* @author Parth Atara
+* @description User schema and model objects
+*/
+
+//User schema
 const userSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -20,30 +29,31 @@ const userSchema = new mongoose.Schema({
         ],
         default: ["client"]
     },
- email : {
-    type: String,
-    required: true
-}, 
-phone : {
-    type: String,
-    required: true
-}, 
-password : {
-    type: String,
-    required: true
-},
-workingUnder: {
-    type: ObjectId
-},
-createdBy: {
-    type: ObjectId
-}
+    email: {
+        type: String,
+        required: true
+    },
+    phone: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    workingUnder: {
+        type: ObjectId
+    },
+    createdBy: {
+        type: ObjectId
+    }
 });
 
-// password hashing function
 
+
+// password hashing function using bcrypt
 userSchema.pre('save', async function (next) {
-    try {     
+    try {
         const salt = await bcrypt.genSalt(Number(process.env.SALT_ROUND));
         const hashedPassword = await bcrypt.hash(this.password, salt);
         this.password = hashedPassword;
@@ -53,7 +63,8 @@ userSchema.pre('save', async function (next) {
     }
 });
 
-  
+
+//Creating model
 const User = mongoose.model("User", userSchema)
 
 export default User

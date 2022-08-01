@@ -18,3 +18,7 @@ export const orderSchema = Joi.object({
     deliveryTo : Joi.string().required().min(3),
     pickUpFrom : Joi.string().required().min(3)
 })
+
+export const updateStatusSchema = Joi.object({
+    status : Joi.string().required().valid("completed", "dispatched")
+})

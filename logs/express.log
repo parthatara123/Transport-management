@@ -1,0 +1,14 @@
+{"level":"info","message":"userId is not defined","metadata":{},"timestamp":"2022-08-01T10:31:38.249Z"}
+{"level":"info","message":"Can not assign inspection manager to other inspection manager","metadata":{},"timestamp":"2022-08-01T10:35:35.562Z"}
+{"level":"info","message":"input is not defined","metadata":{},"timestamp":"2022-08-01T10:37:04.124Z"}
+{"level":"info","message":"Can not assign inspection manager to other undefined","metadata":{},"timestamp":"2022-08-01T11:15:38.791Z"}
+{"level":"info","message":"Can not assign inspection manager to other inspection manager","metadata":{},"timestamp":"2022-08-01T11:15:58.057Z"}
+{"level":"info","message":"input is not defined","metadata":{},"timestamp":"2022-08-01T11:18:33.994Z"}
+{"level":"info","message":"user is already working under same manager","metadata":{},"timestamp":"2022-08-01T11:22:15.867Z"}
+{"level":"info","message":"\"role\" is required","metadata":{"_original":{"password":"Prafful@123","phone":"9876543217"},"details":[{"context":{"key":"role","label":"role"},"message":"\"role\" is required","path":["role"],"type":"any.required"}]},"timestamp":"2022-08-01T13:26:05.622Z"}
+{"level":"info","message":"image is required","metadata":{},"timestamp":"2022-08-01T13:26:58.254Z"}
+{"level":"info","message":"Types is not defined","metadata":{},"timestamp":"2022-08-01T13:53:07.624Z"}
+{"level":"info","message":"input is not defined","metadata":{},"timestamp":"2022-08-01T13:54:28.685Z"}
+{"level":"info","message":"can not update status as completed as order has not been dispatched","metadata":{},"timestamp":"2022-08-01T14:07:21.192Z"}
+{"level":"info","message":"order status is already dispatched","metadata":{},"timestamp":"2022-08-01T14:07:39.394Z"}
+{"level":"info","message":"\"status\" must be one of [completed, dispatched]","metadata":{"_original":{"status":"pending"},"details":[{"context":{"key":"status","label":"status","valids":["completed","dispatched"],"value":"pending"},"message":"\"status\" must be one of [completed, dispatched]","path":["status"],"type":"any.only"}]},"timestamp":"2022-08-01T14:07:51.842Z"}

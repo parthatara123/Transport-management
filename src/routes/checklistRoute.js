@@ -1,15 +1,18 @@
 import express from 'express'
-import { authentication } from '../middleware/auth.js'
-import { createBlankChecklistSchema } from '../middleware/joiValidator.js'
-import {createBlankChecklist , getChecklistByClientId} from '../controllers/Api/checklistController.js'
+import { authentication, allowedRoles } from '../middleware/auth.js'
+import { createBlankChecklistSchema, createFilledChecklistSchema } from '../middleware/joiValidator.js'
+import { createBlankChecklistHandler, getChecklistByClientIdHandler, fillChecklistHandler } from '../controllers/Api/checklistController.js'
+
 const router = express.Router()
 
-//test API routes
-router.get('/test', (req, res) =>{
-    console.log("test")
-    res.send('Test API user route')
-})
+// API to create blank checklist
+router.post('/create/blank', createBlankChecklistSchema, authentication, allowedRoles(["admin", "procurement manager"]), createBlankChecklistHandler)
 
-router.post('/createBlankChecklist', createBlankChecklistSchema, authentication ,createBlankChecklist)
-router.get('/getChecklist/:clientId', authentication, getChecklistByClientId)
+// API to get all blank checklists
+router.get('/get/blank/:clientId', authentication, allowedRoles(["admin", "procurement manager", "inspection manager"]), getChecklistByClientIdHandler)
+
+
+// API to fill checklist and link it checklist to order
+router.post('/register/fill/:orderId', createFilledChecklistSchema, authentication, allowedRoles(["inspection manager"]), fillChecklistHandler)
+
 export default router

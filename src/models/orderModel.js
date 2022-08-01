@@ -2,12 +2,20 @@ import mongoose from "mongoose";
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
+
+/*
+* @author Parth Atara
+* @description : Order schema and model objects
+*/
+
+
+//Order schema
 const orderSchema = new mongoose.Schema({
     clientId: {type : ObjectId, ref : "User"},
     createdBy : {type : ObjectId, ref : "User"},
     status : {type : String},
-    blankChecklistId : {type : ObjectId, ref : "BlankChecklist"},
-    filledChecklistId : {type : ObjectId, ref : "FilledChecklist"},
+    blankChecklistId : {type : ObjectId, ref : "blankChecklist"},
+    filledChecklistId : {type : ObjectId, ref : "filledChecklist"},
     isVerified: {type : Boolean},
     items : {type : Number},
     itemType : {type : String},
@@ -21,6 +29,8 @@ const orderSchema = new mongoose.Schema({
     pickUpFrom : {type : String},
 }, {timestamps : true})
 
+
+//Creating model
 const Order = mongoose.model ("Order", orderSchema)
 
 export default Order

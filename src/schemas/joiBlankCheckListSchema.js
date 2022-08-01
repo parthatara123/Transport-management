@@ -1,5 +1,6 @@
 import Joi from "joi"
 
+// Joi validation of 
 export const blankChecklistSchema = Joi.object({
 
     clientId: Joi.string().hex().length(24).required(),
@@ -17,5 +18,7 @@ export const blankChecklistSchema = Joi.object({
         phone : null,
         airPressureGood : null,
     }), 
+    halfLoadingImage : Joi.string(),
+    fullLoadingImage : Joi.string(),
     summary : Joi.string().default(null)
 })

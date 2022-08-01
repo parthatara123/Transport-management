@@ -1,19 +1,27 @@
 import express from 'express'
-import {createUserSchema, loginSchema, updateSchema} from '../middleware/joiValidator.js'
-import { authentication } from '../middleware/auth.js'
-import {registerUser, login, updateUser, getInspectionManager} from '../controllers/Auth/userController.js'
+import {createUserSchema, loginSchema} from '../middleware/joiValidator.js'
+import {authentication, allowedRoles} from '../middleware/auth.js'
+import {registerUserHandler, loginHandler, logoutHandler} from '../controllers/Auth/userLogin-signup.js'
+import {getUserByRoleHandler, updateUserHandler, getInspectionManagerHandler} from '../controllers/Api/userController.js'
 
 const router = express.Router()
 
-//test API routes
-router.get('/test', (req, res) =>{
-    console.log("test")
-    res.send('Test API user route')
-})
+//API for user registration
+router.post('/register', createUserSchema, authentication, registerUserHandler)
 
-router.post('/registerUser', createUserSchema, authentication ,registerUser)
-router.get('/login', loginSchema, login)
-router.put('/updateUser', updateSchema, authentication, updateUser)
-router.get('/inspectionManager',authentication, getInspectionManager)
+//API for user login
+router.get('/login', loginSchema, loginHandler)
 
+//API for user update
+router.put('/update', authentication, updateUserHandler)
+
+//API to get inspection manager data working under procurement manager
+router.get('/inspectionManager', authentication, getInspectionManagerHandler)
+
+
+// Get users
+router.get('/get', authentication, allowedRoles(['admin']), getUserByRoleHandler);
+
+// Logout
+router.get('/logout', logoutHandler);
 export default router
