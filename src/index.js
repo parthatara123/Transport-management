@@ -6,7 +6,7 @@ import createError from 'http-errors'
 import helmet from 'helmet'
 import morgan from 'morgan'
 import multer from 'multer'
-import locals from './config/config.js';
+import locals from '../config/config.js';
 import Database from '../src/db/db.js';
 import userRouter from '../src/routes/userRoute.js';
 import orderRouter from '../src/routes/orderRoute.js';
