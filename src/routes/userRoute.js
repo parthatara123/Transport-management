@@ -1,5 +1,5 @@
 import express from 'express'
-import {createUserSchema, loginSchema} from '../middleware/joiValidator.js'
+import {createUserSchema, loginSchema, updateSchema} from '../middleware/joiValidator.js'
 import {authentication, allowedRoles} from '../middleware/auth.js'
 import {registerUserHandler, loginHandler, logoutHandler} from '../controllers/Auth/userLogin-signup.js'
 import {getUserByRoleHandler, updateUserHandler, getInspectionManagerHandler} from '../controllers/Api/userController.js'
@@ -13,11 +13,10 @@ router.post('/register', createUserSchema, authentication, registerUserHandler)
 router.get('/login', loginSchema, loginHandler)
 
 //API for user update
-router.put('/update', authentication, updateUserHandler)
+router.patch('/update', updateSchema, authentication, allowedRoles(['admin']), updateUserHandler)
 
 //API to get inspection manager data working under procurement manager
-router.get('/inspectionManager', authentication, getInspectionManagerHandler)
-
+router.get('/inspectionManager', authentication, allowedRoles(['admin', 'procurement manager']), getInspectionManagerHandler)
 
 // Get users
 router.get('/get', authentication, allowedRoles(['admin']), getUserByRoleHandler);

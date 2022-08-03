@@ -6,7 +6,7 @@ import logger from "../../logger/logger.js";
 /*
 * @author Parth Atara
 * @description : Update user's workingUnder property
-* @route POST user/updateUser
+* @route PATCH user/update
 */
 export const updateUserHandler = async (req, res, next) => {
     try{
@@ -34,8 +34,8 @@ export const getInspectionManagerHandler = async (req, res, next) => {
         const payload = req.decodedToken
 
         const insManager = await inspectionManager(payload)
-
         res.status(200).send({status: true, message: 'Inspection Manager are: ', data: insManager})
+   
     } catch (err) {
         logger.info(err.message);
         return next(err);

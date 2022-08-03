@@ -22,5 +22,9 @@ export const loginUserSchema = Joi.object({
 })
 
 
-
+export const updateUserSchema = Joi.object({
+    id: Joi.string().hex().length(24).required(),
+    role: Joi.string().required().valid("admin", "client", "procurement manager", "inspection manager"),
+    workingUnder: Joi.string().hex().length(24).required()
+  })
   

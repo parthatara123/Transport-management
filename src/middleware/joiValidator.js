@@ -1,4 +1,4 @@
-import {registerUserSchema, loginUserSchema} from '../schemas/joiUserSchema.js'
+import {registerUserSchema, loginUserSchema, updateUserSchema} from '../schemas/joiUserSchema.js'
 import {filledChecklistSchema} from '../schemas/joiFilledCheckListSchema.js'
 import {blankChecklistSchema} from '../schemas/joiBlankCheckListSchema.js'
 import {orderSchema, updateStatusSchema} from '../schemas/joiOrderSchema.js';
@@ -78,6 +78,11 @@ export const loginSchema = (req, res, next) => {
     requestValidator(req, next, schema);
 }
 
+
+export const updateSchema = (req, res, next) => {
+    const schema = updateUserSchema
+    requestValidator(req, next, schema);
+}
 
 export const createOrderSchema = (req, res, next) => {
     const schema = orderSchema

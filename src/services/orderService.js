@@ -52,13 +52,13 @@ export const linkChecklistToOrder = async (orderId, blankChecklistId) => {
 
         const order = await Order.findById(orderId);
 
-        if (! order) {
+        if (!order) {
             throw createHttpError.NotFound(`Order not found by ${orderId} id`)
         }
 
         const blankChecklist = await BlankChecklist.findById(blankChecklistId);
 
-        if (! blankChecklist) {
+        if (!blankChecklist) {
             throw createHttpError.NotFound(`Blank checklist not found by ${blankChecklistId} id`)
         }
 

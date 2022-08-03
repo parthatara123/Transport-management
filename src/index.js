@@ -11,6 +11,10 @@ import Database from '../src/db/db.js';
 import userRouter from '../src/routes/userRoute.js';
 import orderRouter from '../src/routes/orderRoute.js';
 import checklistRouter from '../src/routes/checklistRoute.js';
+import fs from 'fs'
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from './../swagger.json';
+
 
 dotenv.config()
 //App Initialization 
@@ -44,6 +48,10 @@ app.use(express.urlencoded({extended: true}))
 //connecting database
 Database.init();
 
+const customCss = fs.readFileSync((process.cwd()+"/swagger.css"), 'utf8');
+// let express to use this
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument, {customCss}));
+
 // diverting incoming request to router
 app.use('/user', userRouter)
 app.use('/order', orderRouter)
@@ -60,7 +68,7 @@ app.use((err, req, res, next) => {
     res.send({status: err.status || 500, msg: err.message})
 })
 
-
+//listening port
 app.listen(port, () => {
     console.log(`Server is listening on port ${port}`);
 })

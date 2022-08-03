@@ -1,0 +1,894 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "This is Transport management project",
+        "version": "1.0.0",
+        "title": "User, checklist and order related APIs",
+        "contact": {
+            "email": "parth.atara@neosoftmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "schemes": ["http"],
+    "host": "localhost:3000",
+    "basePath": "/",
+    "paths": {
+        "/checklist/create/blank": {
+          "post": {
+            "tags": [
+              "Checklist"
+            ],
+            "summary": "create blank checklist",
+            "operationId": "createblankchecklist",
+            "parameters": [
+                {
+                    "in": "body",
+                    "name": "body",
+                    "description": "Create blank checklist",
+                    "required": true,
+                    "schema": {
+                        "type": "object",
+                        "properties": {         
+                            "data" : {
+                                "type": "object",
+                                "$ref": "#/components/schemas/createblankchecklistrequest"
+                            } 
+                        }
+                    }
+                }
+            ],
+            "requestBody": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/createblankchecklistrequest"
+                  },
+                  "example": {
+                    "clientId": "62e25296f8cc33e3c762b535",
+                    "requirements": {
+                      "cooler": null,
+                      "padding": null,
+                      "waterProtection": null
+                    }
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "Success",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/checklist/register/fill/{orderId}": {
+          "post": {
+            "tags": [
+              "Checklist"
+            ],
+            "summary": "Fill checklist",
+            "operationId": "fillchecklist",
+            "parameters": [
+              {
+                "name": "orderId",
+                "in": "path",
+                "description": "Fill checklist",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "62e8e666cbd8d59eb8f09202"
+                },"properties": {
+                    "data" : {
+                        "type": "object",
+                        "$ref": "#/components/schemas/requirements1"
+                }
+              }
+            }
+            ],
+            "requestBody": {
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "encoding": {},
+                  "schema": {
+                    "required": [
+                      "requirements",
+                      "driverDetails",
+                      "category",
+                      "halfLoadingImage",
+                      "fullLoadingImage"
+                    ],
+                    "type": "object",
+                    "properties": {
+                      "requirements": {
+                        "$ref": "#/components/schemas/requirements1"
+                      },
+                      "driverDetails": {
+                        "$ref": "#/components/schemas/driverDetails"
+                      },
+                      "category": {
+                        "type": "string",
+                        "example": "food"
+                      },
+                      "halfLoadingImage": {
+                        "type": "string"
+                      },
+                      "fullLoadingImage": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              },
+              "required": false
+            },
+            "responses": {
+              "200": {
+                "description": "Success",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/checklist/get/blank/{clientId}": {
+          "get": {
+            "tags": [
+              "Checklist"
+            ],
+            "summary": "Get checklist by client id",
+            "operationId": "Getchecklistbyclientid",
+            "parameters": [
+              {
+                "name": "clientId",
+                "in": "path",
+                "description": "Get blank checklist for procurement manager",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "62e25296f8cc33e3c762b535"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "Success",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/user/register": {
+          "post": {
+            "tags": [
+              "User"
+            ],
+            "summary": "registeruser",
+            "operationId": "registeruser",
+            "parameters": [{
+                "in": "body",
+                "name": "body",
+                "description": "Register user",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "properties": {         
+                        "data" : {
+                            "type": "object",
+                            "$ref": "#/components/schemas/registeruserrequest"
+                        } 
+                    }
+                }
+            }],
+            "requestBody": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/registeruserrequest"
+                  },
+                  "example": {
+                    "title": "Miss",
+                    "name": "client5",
+                    "role": "client",
+                    "email": "client5@gmail.com",
+                    "password": "Prafful@123",
+                    "phone": "9876543289"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "Success",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/user/login": {
+          "get": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Login",
+            "operationId": "Login",
+            "parameters": [{
+                "in": "body",
+                "name": "body",
+                "description": "User login",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "properties": {         
+                        "data" : {
+                            "type": "object",
+                            "$ref": "#/components/schemas/loginrequest"
+                        } 
+                    }
+                }
+            }],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false
+          }
+        },
+        "/user/update": {
+          "patch": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Update User",
+            "operationId": "UpdateUser",
+            "parameters": [{
+                "in": "body",
+                "name": "body",
+                "description": "Update inspection manager's working under property",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "properties": {         
+                        "data" : {
+                            "type": "object",
+                            "$ref": "#/components/schemas/UpdateUserRequest"
+                        } 
+                    }
+                }
+            }],
+            "requestBody": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateUserRequest"
+                  },
+                  "example": {
+                    "id": "62e26424be082931c3a6d58e",
+                    "role": "inspection manager",
+                    "workingUnder": "62e2522df8cc33e3c762b530"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/": {
+          "get": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Logout",
+            "operationId": "Logout",
+            "parameters": [],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false
+          }
+        },
+        "/user/inspectionManager": {
+          "get": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Get inspection manager",
+            "operationId": "Getinspectionmanager",
+            "parameters": [],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/user/get": {
+          "get": {
+            "tags": [
+              "User"
+            ],
+            "summary": "Get users",
+            "operationId": "Getusers",
+            "parameters": [
+              {
+                "name": "role",
+                "in": "query",
+                "description": "",
+                "required": true,
+                "style": "form",
+                "explode": true,
+                "schema": {
+                  "type": "string",
+                  "example": "inspection manager"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/order/createOrder": {
+          "post": {
+            "tags": [
+              "Order"
+            ],
+            "summary": "Create order",
+            "operationId": "Createorder",
+            "parameters": [{
+                "in": "body",
+                "name": "body",
+                "description": "Create order",
+                "required": true,
+                "schema": {
+                    "type": "object",
+                    "properties": {         
+                        "data" : {
+                            "type": "object",
+                            "$ref": "#/components/schemas/CreateorderRequest"
+                        } 
+                    }
+                }
+            }],
+            "requestBody": {
+              "description": "",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CreateorderRequest"
+                  },
+                  "example": {
+                    "clientId": "62e8bb64729f4f237095e0a3",
+                    "items": 100,
+                    "itemType": "food",
+                    "coolerRequired": true,
+                    "waterProtectionRequired": true,
+                    "itemDetails": "Milk",
+                    "deliveryTo": "Delhi",
+                    "pickUpFrom": "Udaipur"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/order/linkChecklist/{orderId}/{blankChecklistId}": {
+          "patch": {
+            "tags": [
+              "Order"
+            ],
+            "summary": "Link checklist with order",
+            "operationId": "Linkchecklistwithorder",
+            "parameters": [
+              {
+                "name": "orderId",
+                "in": "path",
+                "description": "",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "62e8e666cbd8d59eb8f09202"
+                }
+              },
+              {
+                "name": "blankChecklistId",
+                "in": "path",
+                "description": "",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "62e8e64ccbd8d59eb8f091ff"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/order/get/{orderStatus}": {
+          "get": {
+            "tags": [
+              "Order"
+            ],
+            "summary": "Get orders by status",
+            "operationId": "Getordersbystatus",
+            "parameters": [
+              {
+                "name": "orderStatus",
+                "in": "path",
+                "description": "",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "pending"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/order/verify/{orderId}": {
+          "patch": {
+            "tags": [
+              "Order"
+            ],
+            "summary": "Verify order",
+            "operationId": "Verifyorder",
+            "parameters": [
+              {
+                "name": "orderId",
+                "in": "path",
+                "description": "",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "62e3c14c7e9db1395ab9122c"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/order/update/{orderId}": {
+          "patch": {
+            "tags": [
+              "Order"
+            ],
+            "summary": "Update order status",
+            "operationId": "Updateorderstatus",
+            "parameters": [
+              {
+                "name": "orderId",
+                "in": "path",
+                "description": "Update order status",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "62e3c14c7e9db1395ab9122c"
+                }
+              }
+            ],
+            "requestBody": {
+              "description": "Update order status",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/UpdateorderstatusRequest"
+                  },
+                  "example": {
+                    "status": "completed"
+                  }
+                }
+              },
+              "required": true
+            },
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        },
+        "/order/status/{orderId}": {
+          "get": {
+            "tags": [
+              "Order"
+            ],
+            "summary": "Order status by orderId",
+            "operationId": "OrderstatusbyorderId",
+            "parameters": [
+              {
+                "name": "orderId",
+                "in": "path",
+                "description": "",
+                "required": true,
+                "style": "simple",
+                "schema": {
+                  "type": "string",
+                  "example": "62e3c14c7e9db1395ab9122c"
+                }
+              }
+            ],
+            "responses": {
+              "200": {
+                "description": "",
+                "headers": {}
+              }
+            },
+            "deprecated": false,
+            "security": [
+              {
+                "bearer": []
+              }
+            ]
+          }
+        }
+      },
+      "components": {
+        "schemas": {
+          "createblankchecklistrequest": {
+            "title": "createblankchecklistrequest",
+            "required": [
+              "clientId",
+              "requirements"
+            ],
+            "type": "object",
+            "properties": {
+              "clientId": {
+                "type": "string"
+              },
+              "requirements": {
+                "$ref": "#/components/schemas/Requirements"
+              }
+            },
+            "example": {
+              "clientId": "62e25296f8cc33e3c762b535",
+              "requirements": {
+                "cooler": null,
+                "padding": null,
+                "waterProtection": null
+              }
+            }
+          },
+          "Requirements": {
+            "title": "Requirements",
+            "required": [
+              "cooler",
+              "padding",
+              "waterProtection"
+            ],
+            "type": "object",
+            "properties": {
+              "cooler": {
+                "type": "string",
+                "nullable": true
+              },
+              "padding": {
+                "type": "string",
+                "nullable": true
+              },
+              "waterProtection": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "example": {
+              "cooler": null,
+              "padding": null,
+              "waterProtection": null
+            }
+          },
+          "requirements1": {
+            "title": "requirements1",
+            "required": [
+              "cooler",
+              "padding"
+            ],
+            "type": "object",
+            "properties": {
+              "cooler": {
+                "type": "boolean"
+              },
+              "padding": {
+                "type": "boolean"
+              }
+            },
+            "example": {
+              "cooler": true,
+              "padding": true
+            }
+          },
+          "driverDetails": {
+            "title": "driverDetails",
+            "required": [
+              "licensePresent",
+              "rc",
+              "phone",
+              "airPressureGood"
+            ],
+            "type": "object",
+            "properties": {
+              "licensePresent": {
+                "type": "boolean"
+              },
+              "rc": {
+                "type": "boolean"
+              },
+              "phone": {
+                "type": "boolean"
+              },
+              "airPressureGood": {
+                "type": "boolean"
+              }
+            },
+            "example": {
+              "licensePresent": true,
+              "rc": true,
+              "phone": true,
+              "airPressureGood": true
+            }
+          },
+          "registeruserrequest": {
+            "title": "registeruserrequest",
+            "required": [
+              "title",
+              "name",
+              "role",
+              "email",
+              "password",
+              "phone"
+            ],
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "password": {
+                "type": "string"
+              },
+              "phone": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "title": "Miss",
+              "name": "client5",
+              "role": "client",
+              "email": "client5@gmail.com",
+              "password": "Prafful@123",
+              "phone": "9876543289"
+            }
+          },
+          "UpdateUserRequest": {
+            "title": "UpdateUserRequest",
+            "required": [
+              "id",
+              "role",
+              "workingUnder"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "role": {
+                "type": "string"
+              },
+              "workingUnder": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "id": "62e26424be082931c3a6d58e",
+              "role": "inspection manager",
+              "workingUnder": "62e2522df8cc33e3c762b530"
+            }
+          },
+          "CreateorderRequest": {
+            "title": "CreateorderRequest",
+            "required": [
+              "clientId",
+              "items",
+              "itemType",
+              "coolerRequired",
+              "waterProtectionRequired",
+              "itemDetails",
+              "deliveryTo",
+              "pickUpFrom"
+            ],
+            "type": "object",
+            "properties": {
+              "clientId": {
+                "type": "string"
+              },
+              "items": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "itemType": {
+                "type": "string"
+              },
+              "coolerRequired": {
+                "type": "boolean"
+              },
+              "waterProtectionRequired": {
+                "type": "boolean"
+              },
+              "itemDetails": {
+                "type": "string"
+              },
+              "deliveryTo": {
+                "type": "string"
+              },
+              "pickUpFrom": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "clientId": "62e8bb64729f4f237095e0a3",
+              "items": 100,
+              "itemType": "food",
+              "coolerRequired": true,
+              "waterProtectionRequired": true,
+              "itemDetails": "Milk",
+              "deliveryTo": "Delhi",
+              "pickUpFrom": "Udaipur"
+            }
+          },
+          "UpdateorderstatusRequest": {
+            "title": "UpdateorderstatusRequest",
+            "required": [
+              "status"
+            ],
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string"
+              }
+            },
+            "example": {
+              "status": "completed"
+            }
+          }
+        },
+        "securitySchemes": {
+          "bearer": {
+            "type": "http",
+            "scheme": "bearer"
+          }
+        }
+      }
+   
+}
